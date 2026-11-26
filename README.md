@@ -35,3 +35,10 @@ A second edge: when the input starts with `+`, the `region` argument is ignored 
 - `RegionError` is raised for unknown or non-string region codes.
 
 Both inherit from `ValueError`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
